@@ -5,5 +5,6 @@ edition = "2021"
 
 [dependencies]
 calamine_to_polars = { git = "https://github.com/anzhi0708/calamine_to_polars.git", version = "0.1.0" }
-polars = "0.42.0"
+plotlib = "0.5.1"
+polars = "0.41.3"
 rfd = "0.14.1"

@@ -1,21 +1,25 @@
 mod path_getter;
 mod excel_reader;
+mod process;
 
-use polars::prelude::*;
-use calamine_to_polars::ToPolarsDataFrame;
 
 fn main() {
     /*
     Plan:
-    1. Get xlsx path           J
-    2. Read data               J
-    3. Process data            X
-    4. Create visualizations   X
-    5. Create output pdf       X
+    1. DONE: Get xlsx path
+    2. DONE: Read data
+    3. TODO: Process data
+                ✓ Convert xlsx to DataFrame
+                - Calculate averages of every number column
+                - Extract free text answers
+                - Create visualizations (box plots, histograms)?
+    4. TODO: Create output pdf
+                - Find suitable formatting
+                - Write file to specified output location (next to original path)
     */
 
     let path_buf = path_getter::get_path().expect("Couldn't open file.");
-    let mut reader = excel_reader::new(path_buf);
-    let df = reader.open_sheet("Sheet1").unwrap().to_df().unwrap();
+    let reader = excel_reader::new(path_buf);
+    let df = process::start(reader).unwrap();
     println!("{:#?}", df);
 }
